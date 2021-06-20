@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.marconecolares.cursomc.DTO.CategoriaDTO;
 import com.marconecolares.cursomc.domain.Categoria;
 import com.marconecolares.cursomc.repositories.CategoriaRepository;
 import com.marconecolares.cursomc.services.exceptions.DataIntegrityException;
@@ -57,6 +58,10 @@ public class CategoriaService {
 		
 		PageRequest pageRequest = PageRequest.of(page, LinesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getNome());
 	}
 	
 }
