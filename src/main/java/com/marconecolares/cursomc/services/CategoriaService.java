@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.marconecolares.cursomc.DTO.CategoriaDTO;
 import com.marconecolares.cursomc.domain.Categoria;
+import com.marconecolares.cursomc.domain.Cliente;
 import com.marconecolares.cursomc.repositories.CategoriaRepository;
 import com.marconecolares.cursomc.services.exceptions.DataIntegrityException;
 import com.marconecolares.cursomc.services.exceptions.ObjectNotFoundException;
@@ -36,8 +37,9 @@ public class CategoriaService {
 	}
 	
 	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 	
 	public void delete(Integer id) {
@@ -62,6 +64,10 @@ public class CategoriaService {
 	
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());;
 	}
 	
 }
